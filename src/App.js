@@ -1,5 +1,5 @@
 import React from 'react';
-import CreditCardComponent from './CreditCardComponent';
+import AciComponent from './AciComponent';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SummaryPage from './SummaryPage';
 
@@ -14,7 +14,7 @@ function App() {
             <SummaryPage />
           </Route>
           <Route path="/">
-            <CreditCardComponent externalSessionToken={EXTERNAL_SESSION_TOKEN} />
+            <AciComponent externalSessionToken={EXTERNAL_SESSION_TOKEN} />
           </Route>
         </Switch>
       </Router>

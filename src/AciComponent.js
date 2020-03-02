@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { withRouter } from 'react-router';
 
-const CreditCardComponent = ({ externalSessionToken }) => {
+const AciComponent = ({ externalSessionToken }) => {
   const aciScriptContainer = useRef();
 
   useEffect(() => {
@@ -15,6 +15,7 @@ const CreditCardComponent = ({ externalSessionToken }) => {
       locale: 'en',
       inlineFlow: ['KLARNA_PAYMENTS_PAYLATER'],
       onReady: () => {
+        // Nothing happens here unless wrapping in a setTimeout.
         window.wpwl.executePayment('wpwl-container-virtualAccount-KLARNA_PAYMENTS_PAYLATER');
       },
     };
@@ -23,16 +24,15 @@ const CreditCardComponent = ({ externalSessionToken }) => {
   }, [externalSessionToken]);
 
   return (
-    <div style={{ marginTop: '50px' }} className="CreditCardComponent my-l-2xs">
+    <div style={{ marginTop: '50px' }}>
       <form
         action={`${window.location.origin}/confirmation-page/`}
         className="paymentWidgets"
         data-brands="KLARNA_PAYMENTS_PAYLATER"
       />
-
       <div ref={aciScriptContainer} />
     </div>
   );
 };
 
-export default withRouter(CreditCardComponent);
+export default withRouter(AciComponent);
