@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { withRouter } from 'react-router';
 
-const CreditCardComponent = ({ externalSessionToken, onBeforeSubmitCardWithAci }) => {
+const CreditCardComponent = ({ externalSessionToken }) => {
   const aciScriptContainer = useRef();
 
-  const initAciForm = useCallback(() => {
+  useEffect(() => {
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.async = true;
@@ -13,34 +13,21 @@ const CreditCardComponent = ({ externalSessionToken, onBeforeSubmitCardWithAci }
     window.wpwlOptions = {
       style: 'plain',
       locale: 'en',
-      brandDetection: true,
-      brandDetectionType: 'binlist',
-      showCVVHint: true,
-      onBeforeSubmitCard: onBeforeSubmitCardWithAci,
-      onReadyIframeCommunication: () => {},
+      inlineFlow: ['KLARNA_PAYMENTS_PAYLATER'],
       onReady: () => {
-        const cardHolderInput = document.querySelector('.wpwl-control-cardHolder');
-        cardHolderInput.value = 'Mikael Eriksson';
+        window.wpwl.executePayment('wpwl-container-virtualAccount-KLARNA_PAYMENTS_PAYLATER');
       },
     };
 
     aciScriptContainer.current.appendChild(script);
-  }, [externalSessionToken, onBeforeSubmitCardWithAci]);
-
-  useEffect(() => {
-    initAciForm();
-  }, [externalSessionToken, initAciForm]);
+  }, [externalSessionToken]);
 
   return (
-    <div
-      style={{ marginTop: '50px' }}
-      className="CreditCardComponent my-l-2xs"
-      data-testid="CreditCardComponent"
-    >
+    <div style={{ marginTop: '50px' }} className="CreditCardComponent my-l-2xs">
       <form
         action={`${window.location.origin}/confirmation-page/`}
         className="paymentWidgets"
-        data-brands="VISA MASTER AMEX"
+        data-brands="KLARNA_PAYMENTS_PAYLATER"
       />
 
       <div ref={aciScriptContainer} />

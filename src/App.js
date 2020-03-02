@@ -1,22 +1,20 @@
-import React from "react";
-import CreditCardComponent from "./CreditCardComponent";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import SummaryPage from "./SummaryPage";
+import React from 'react';
+import CreditCardComponent from './CreditCardComponent';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import SummaryPage from './SummaryPage';
 
-const EXTERNAL_SESSION_TOKEN = "20EAFAF23F0D8D35347CD240801A2919.uat01-vm-tx04";
+const EXTERNAL_SESSION_TOKEN = '8958CCDDEFDB2170367BFBB39E6F5BF0.uat01-vm-tx03';
 
 function App() {
   return (
-    <div className="App" style={{ width: "30%", margin: "0 auto" }}>
+    <div className="App" style={{ width: '30%', margin: '0 auto' }}>
       <Router>
         <Switch>
           <Route path="/summary-page">
-            <SummaryPage></SummaryPage>
+            <SummaryPage />
           </Route>
           <Route path="/">
-            <CreditCardComponent
-              externalSessionToken={EXTERNAL_SESSION_TOKEN}
-            ></CreditCardComponent>
+            <CreditCardComponent externalSessionToken={EXTERNAL_SESSION_TOKEN} />
           </Route>
         </Switch>
       </Router>
