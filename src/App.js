@@ -53,3 +53,40 @@ function App() {
 }
 
 export default App;
+
+// const [apiCallIsSuccessful, setApiCallIsSuccessful] = useState(false);
+
+// useEffect(() => {
+//   if (apiCallIsSuccessful) executePayment();
+// }, [apiCallIsSuccessful]);
+
+// function executePayment(e) {
+//   if (e) e.preventDefault();
+
+//   // This only works with a timeout. Otherwise makeApiCallSuccess
+//   // is false in onBeforeSubmitWithAci.
+//   setTimeout(() => {
+//     window.wpwl.executePayment('wpwl-container-card');
+//   }, 500);
+// }
+
+// async function makeApiCall() {
+//   try {
+//     const response = await fetch(HN_URL);
+//     await response.json();
+//     setApiCallIsSuccessful(true);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
+// function onBeforeSubmitWithAci() {
+//   console.log('apiCallIsSuccessful', apiCallIsSuccessful);
+
+//   // The api call has already been made.
+//   if (apiCallIsSuccessful) return true;
+
+//   makeApiCall();
+
+//   return false;
+// }
