@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import { withRouter } from 'react-router';
 
-const CreditCardComponent = ({ externalSessionToken, onBeforeSubmitCardWithAci }) => {
+const AciComponent = ({ checkoutId, onBeforeSubmitCardWithAci }) => {
   const aciScriptContainer = useRef();
 
   const initAciForm = useCallback(() => {
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.async = true;
-    script.src = `https://test.oppwa.com/v1/paymentWidgets.js?checkoutId=${externalSessionToken}`;
+    script.src = `https://test.oppwa.com/v1/paymentWidgets.js?checkoutId=${checkoutId}`;
 
     window.wpwlOptions = {
       style: 'plain',
@@ -25,18 +25,18 @@ const CreditCardComponent = ({ externalSessionToken, onBeforeSubmitCardWithAci }
     };
 
     aciScriptContainer.current.appendChild(script);
-  }, [externalSessionToken, onBeforeSubmitCardWithAci]);
+  }, [checkoutId, onBeforeSubmitCardWithAci]);
 
   useEffect(() => {
-    initAciForm();
-  }, [externalSessionToken, initAciForm]);
+    if (checkoutId) initAciForm();
+  }, [checkoutId, initAciForm]);
+
+  if (!checkoutId) {
+    return <p>Please submit a Checkout ID</p>;
+  }
 
   return (
-    <div
-      style={{ marginTop: '50px' }}
-      className="CreditCardComponent my-l-2xs"
-      data-testid="CreditCardComponent"
-    >
+    <div style={{ marginTop: '5rem' }} className="AciComponent my-l-2xs" data-testid="AciComponent">
       <form
         action={`${window.location.origin}/confirmation-page/`}
         className="paymentWidgets"
@@ -48,4 +48,4 @@ const CreditCardComponent = ({ externalSessionToken, onBeforeSubmitCardWithAci }
   );
 };
 
-export default withRouter(CreditCardComponent);
+export default withRouter(AciComponent);
