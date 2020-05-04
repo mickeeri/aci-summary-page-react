@@ -4,9 +4,37 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import SummaryPage from './SummaryPage';
 import ConfirmationPage from './ConfirmationPage';
 
+const HN_URL = 'https://hacker-news.firebaseio.com/v0/topstories.json';
+
+function executePayment() {
+  window.wpwl.executePayment('wpwl-container-card');
+}
+
 function App() {
   const [checkoutIdInputValue, setCheckoutIdInputValue] = useState('');
   const [checkoutId, setCheckoutId] = useState('');
+  let apiCallIsSuccessful = false;
+
+  function onBeforeSubmitWithAci() {
+    async function makeApiCall() {
+      try {
+        const response = await fetch(HN_URL);
+        await response.json();
+        apiCallIsSuccessful = true;
+
+        executePayment();
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    // The api call has already been made.
+    if (apiCallIsSuccessful) return true;
+
+    makeApiCall();
+
+    return false;
+  }
 
   function handleCheckoutIdChange(e) {
     setCheckoutIdInputValue(e.target.value);
@@ -35,7 +63,7 @@ function App() {
                 <button type="submit">Submit</button>
               </form>
 
-              <AciComponent checkoutId={checkoutId} />
+              <AciComponent checkoutId={checkoutId} onBeforeSubmitWithAci={onBeforeSubmitWithAci} />
             </>
           </Route>
 
@@ -53,40 +81,3 @@ function App() {
 }
 
 export default App;
-
-// const [apiCallIsSuccessful, setApiCallIsSuccessful] = useState(false);
-
-// useEffect(() => {
-//   if (apiCallIsSuccessful) executePayment();
-// }, [apiCallIsSuccessful]);
-
-// function executePayment(e) {
-//   if (e) e.preventDefault();
-
-//   // This only works with a timeout. Otherwise makeApiCallSuccess
-//   // is false in onBeforeSubmitWithAci.
-//   setTimeout(() => {
-//     window.wpwl.executePayment('wpwl-container-card');
-//   }, 500);
-// }
-
-// async function makeApiCall() {
-//   try {
-//     const response = await fetch(HN_URL);
-//     await response.json();
-//     setApiCallIsSuccessful(true);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
-// function onBeforeSubmitWithAci() {
-//   console.log('apiCallIsSuccessful', apiCallIsSuccessful);
-
-//   // The api call has already been made.
-//   if (apiCallIsSuccessful) return true;
-
-//   makeApiCall();
-
-//   return false;
-// }

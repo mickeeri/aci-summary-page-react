@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { withRouter } from 'react-router';
 
-const AciComponent = ({ checkoutId, onBeforeSubmitCardWithAci }) => {
+const AciComponent = ({ checkoutId, onBeforeSubmitWithAci }) => {
   const aciScriptContainer = useRef();
 
   useEffect(() => {
@@ -17,17 +17,15 @@ const AciComponent = ({ checkoutId, onBeforeSubmitCardWithAci }) => {
       window.wpwlOptions = {
         style: 'plain',
         locale: 'en',
-        inlineFlow: ['KLARNA_PAYMENTS_PAYLATER'],
-        onReady: () => {
-          window.wpwl.executePayment('wpwl-container-virtualAccount-KLARNA_PAYMENTS_PAYLATER');
-        },
+        onReady: () => {},
+        onBeforeSubmitCard: onBeforeSubmitWithAci,
       };
 
       aciScriptContainer.current.appendChild(script);
     }
 
     if (checkoutId) initAciForm();
-  }, [checkoutId]);
+  }, [checkoutId, onBeforeSubmitWithAci]);
 
   if (!checkoutId) {
     return <p>Please submit a Checkout ID</p>;
@@ -38,7 +36,7 @@ const AciComponent = ({ checkoutId, onBeforeSubmitCardWithAci }) => {
       <form
         action={`${window.location.origin}/confirmation-page/`}
         className="paymentWidgets"
-        data-brands="KLARNA_PAYMENTS_PAYLATER"
+        data-brands="VISA"
       />
 
       <div ref={aciScriptContainer} />
