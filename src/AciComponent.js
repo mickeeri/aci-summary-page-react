@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { withRouter } from 'react-router';
 
-const AciComponent = ({ checkoutId, onBeforeSubmitWithAci }) => {
+const ACI_SCRIPT_ID = 'aci-script';
+
+const AciComponent = ({ checkoutId, onBeforeSubmitWithAci, formNumber }) => {
   const aciScriptContainer = useRef();
 
   useEffect(() => {
@@ -10,9 +12,9 @@ const AciComponent = ({ checkoutId, onBeforeSubmitWithAci }) => {
       script.type = 'text/javascript';
       script.async = true;
       script.src = `https://test.oppwa.com/v1/paymentWidgets.js?checkoutId=${checkoutId}`;
-      script.id = 'aci-script';
+      script.id = ACI_SCRIPT_ID;
 
-      if (document.getElementById('aci-script')) return;
+      if (document.getElementById(ACI_SCRIPT_ID)) return;
 
       window.wpwlOptions = {
         style: 'plain',
@@ -27,12 +29,22 @@ const AciComponent = ({ checkoutId, onBeforeSubmitWithAci }) => {
     if (checkoutId) initAciForm();
   }, [checkoutId, onBeforeSubmitWithAci]);
 
+  useEffect(() => {
+    return () => {
+      if (window.wpwl && window.wpwl.unload) {
+        // Unload the widget when unmounting this component.
+        window.wpwl.unload();
+      }
+    };
+  }, []);
+
   if (!checkoutId) {
     return <p>Please submit a Checkout ID</p>;
   }
 
   return (
     <div style={{ marginTop: '5rem' }} className="AciComponent my-l-2xs" data-testid="AciComponent">
+      <h2>Form number: {formNumber}</h2>
       <form
         action={`${window.location.origin}/confirmation-page/`}
         className="paymentWidgets"

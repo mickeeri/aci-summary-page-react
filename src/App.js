@@ -13,6 +13,8 @@ function executePayment() {
 function App() {
   const [checkoutIdInputValue, setCheckoutIdInputValue] = useState('');
   const [checkoutId, setCheckoutId] = useState('');
+  const [aciForm, setAciForm] = useState(1);
+
   let apiCallIsSuccessful = false;
 
   function onBeforeSubmitWithAci() {
@@ -45,6 +47,10 @@ function App() {
     setCheckoutId(checkoutIdInputValue);
   }
 
+  function switchForm() {
+    setAciForm(aciForm === 1 ? 2 : 1);
+  }
+
   return (
     <div className="App" style={{ width: '30%', margin: '10rem auto' }}>
       <Router>
@@ -59,11 +65,28 @@ function App() {
                   value={checkoutIdInputValue}
                   onChange={handleCheckoutIdChange}
                 />
-
-                <button type="submit">Submit</button>
               </form>
 
-              <AciComponent checkoutId={checkoutId} onBeforeSubmitWithAci={onBeforeSubmitWithAci} />
+              {checkoutIdInputValue && (
+                <button style={{ margin: '1rem 0' }} onClick={switchForm}>
+                  Switch form
+                </button>
+              )}
+
+              {aciForm === 1 && (
+                <AciComponent
+                  checkoutId={checkoutId}
+                  onBeforeSubmitWithAci={onBeforeSubmitWithAci}
+                  formNumber={1}
+                />
+              )}
+              {aciForm === 2 && (
+                <AciComponent
+                  checkoutId={checkoutId}
+                  onBeforeSubmitWithAci={onBeforeSubmitWithAci}
+                  formNumber={2}
+                />
+              )}
             </>
           </Route>
 
