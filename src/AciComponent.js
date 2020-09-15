@@ -14,11 +14,18 @@ const AciComponent = ({ checkoutId, onBeforeSubmitWithAci }) => {
 
       if (document.getElementById('aci-script')) return;
 
+      script.addEventListener('error', (error) => {
+        console.error(error);
+      });
+
       window.wpwlOptions = {
         style: 'plain',
         locale: 'en',
         onReady: () => {},
         onBeforeSubmitCard: onBeforeSubmitWithAci,
+        onError: (error) => {
+          console.error(error);
+        },
       };
 
       aciScriptContainer.current.appendChild(script);
