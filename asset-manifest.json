@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/aci-minimal-react-app/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/aci-minimal-react-app/static/js/main.75f1d340.chunk.js",
+    "main.js.map": "/aci-minimal-react-app/static/js/main.75f1d340.chunk.js.map",
+    "runtime-main.js": "/aci-minimal-react-app/static/js/runtime-main.c0bb681d.js",
+    "runtime-main.js.map": "/aci-minimal-react-app/static/js/runtime-main.c0bb681d.js.map",
+    "static/js/2.17e3172b.chunk.js": "/aci-minimal-react-app/static/js/2.17e3172b.chunk.js",
+    "static/js/2.17e3172b.chunk.js.map": "/aci-minimal-react-app/static/js/2.17e3172b.chunk.js.map",
+    "index.html": "/aci-minimal-react-app/index.html",
+    "precache-manifest.e4b1917e589cd529ed16c61d0c1d2a22.js": "/aci-minimal-react-app/precache-manifest.e4b1917e589cd529ed16c61d0c1d2a22.js",
+    "service-worker.js": "/aci-minimal-react-app/service-worker.js",
+    "static/css/main.5ecd60fb.chunk.css.map": "/aci-minimal-react-app/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.17e3172b.chunk.js.LICENSE": "/aci-minimal-react-app/static/js/2.17e3172b.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c0bb681d.js",
+    "static/js/2.17e3172b.chunk.js",
+    "static/css/main.5ecd60fb.chunk.css",
+    "static/js/main.75f1d340.chunk.js"
+  ]
+}
