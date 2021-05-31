@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AciComponent from './AciComponent';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import SummaryPage from './SummaryPage';
 import ConfirmationPage from './ConfirmationPage';
 

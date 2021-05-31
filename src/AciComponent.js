@@ -23,7 +23,9 @@ const AciComponent = ({ checkoutId, onBeforeSubmitWithAci }) => {
         locale: 'en',
         onReady: () => {},
         onBeforeSubmitCard: onBeforeSubmitWithAci,
+        inlineFlow: ['KLARNA_PAYMENTS_PAYLATER'],
         onError: (error) => {
+          alert(JSON.stringify(error));
           console.error(error);
         },
       };
@@ -43,7 +45,7 @@ const AciComponent = ({ checkoutId, onBeforeSubmitWithAci }) => {
       <form
         action={`${window.location.origin}/confirmation-page/`}
         className="paymentWidgets"
-        data-brands="VISA"
+        data-brands="VISA MASTER KLARNA_PAYMENTS_PAYLATER"
       />
 
       <div ref={aciScriptContainer} />
