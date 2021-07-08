@@ -24,6 +24,7 @@ const AciComponent = ({ checkoutId, onBeforeSubmitWithAci }) => {
         onReady: () => {},
         onBeforeSubmitCard: onBeforeSubmitWithAci,
         inlineFlow: ['KLARNA_PAYMENTS_PAYLATER'],
+        brandDetectionType: 'binlist',
         onError: (error) => {
           alert(JSON.stringify(error));
           console.error(error);
